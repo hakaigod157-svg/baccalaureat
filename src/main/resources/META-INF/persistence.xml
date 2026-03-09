@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="baccalaureatPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <!-- Entities -->
+        <class>baccalaureat.model.Candidat</class>
+        <class>baccalaureat.model.Note</class>
+        <class>baccalaureat.model.Matiere</class>
+        <class>baccalaureat.model.Serie</class>
+        <class>baccalaureat.model.Ecole</class>
+        <class>baccalaureat.model.Prof</class>
+        <class>baccalaureat.model.Parametre</class>
+        <class>baccalaureat.model.Resolution</class>
+        <class>baccalaureat.model.Operateur</class>
+        
+        <properties>
+            <!-- Properties are configured in applicationContext.xml -->
+        </properties>
+    </persistence-unit>
+</persistence>
