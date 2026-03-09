@@ -15,5 +15,5 @@
             <a href="${pageContext.request.contextPath}/recherche" class="nav-link">Recherche</a>
             <a href="${pageContext.request.contextPath}/recherche/notes-finales" class="nav-link text-gold">Notes Finales</a>
         </div>
-        <div class="brand">3860</div>
+        <div class="brand">ETU3860</div>
     </nav>
