@@ -1,6 +1,6 @@
 CREATE DATABASE baccalaureat_db;
 
-\c bacc_db;
+\c baccalaureat_db;
 
 
 CREATE TABLE professeurs(
