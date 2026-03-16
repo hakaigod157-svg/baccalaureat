@@ -178,18 +178,33 @@ public class NoteService {
         double ecart = calculerEcart(candidatId, matiereId);
 
         List<Parametre> parametres = parametreRepository.findAll();
+        List<Parametre> parametresApplicables = new ArrayList<>();
+
         for (Parametre p : parametres) {
-            // Vérifier si la matière correspond
             if (p.getMatiere() != null && !p.getMatiere().getIdMatiere().equals(matiereId)) continue;
 
             if (parametreApplique(ecart, p)) {
-                String resolution = p.getResolution() != null ? p.getResolution().getOperation().toLowerCase() : "moyenne";
-                return appliquerResolution(notes, resolution);
+                parametresApplicables.add(p);
             }
         }
 
-        // Par défaut : moyenne
-        return appliquerResolution(notes, "moyenne");
+        if (parametresApplicables.isEmpty()) {
+            return appliquerResolution(notes, "moyenne");
+        }
+
+        Parametre parametreChoisi = parametresApplicables.get(0);
+
+        if (parametresApplicables.size() > 1) {
+            for (int i = 1; i < parametresApplicables.size(); i++) {
+                Parametre pCompare = compareSeuil(candidatId, matiereId, parametreChoisi, parametresApplicables.get(i));
+                if (pCompare != null) {
+                    parametreChoisi = pCompare;
+                }
+            }
+        }
+
+        String resolution = parametreChoisi.getResolution() != null ? parametreChoisi.getResolution().getOperation().toLowerCase() : "moyenne";
+        return appliquerResolution(notes, resolution);
     }
 
     private Double appliquerResolution(List<Note> notes, String resolution) {
@@ -203,7 +218,6 @@ public class NoteService {
         } else if (resolution.contains("max") || resolution.contains("haute") || resolution.contains("plus")) {
             return notes.stream().mapToDouble(Note::getValeurNote).max().orElse(0);
         }
-        // défaut : moyenne
         double sum = 0;
         for (Note n : notes) sum += n.getValeurNote();
         return sum / notes.size();
