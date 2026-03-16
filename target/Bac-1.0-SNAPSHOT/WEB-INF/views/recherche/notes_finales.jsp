@@ -37,9 +37,9 @@
         }
         .scroll-wrapper { overflow-x: auto; }
         th, td { white-space: nowrap; }
-        .note-ok { color: var(--gold); font-weight: 700; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; }
-        .note-low { color: #e74c3c; font-weight: 700; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; }
-        .note-high { color: #27ae60; font-weight: 700; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; }
+        .note-ok { color: var(--gold); font-weight: 700; font-family: 'Helvetica', sans-serif; font-size: 1.5rem; }
+        .note-low { color: #e74c3c; font-weight: 700; font-family: 'Helvetica', sans-serif; font-size: 1.5rem; }
+        .note-high { color: #27ae60; font-weight: 700; font-family: 'Helvetica', sans-serif; font-size: 1.5rem; }
         .ecart-badge {
             display: inline-block;
             font-size: 0.65rem;
@@ -168,7 +168,7 @@
                                                                     <span class="note-low"><fmt:formatNumber value="${nf}" maxFractionDigits="2"/></span>
                                                                 </c:otherwise>
                                                             </c:choose>
-                                                            <span style="color:var(--text-muted);font-size:0.75rem">/20</span>
+                                                            <span style="color:var(--text-muted);font-size:1.5rem">/20</span>
                                                             <c:if test="${ec > 0}">
                                                                 <span class="ecart-badge">ec. <fmt:formatNumber value="${ec}" maxFractionDigits="1"/></span>
                                                             </c:if>

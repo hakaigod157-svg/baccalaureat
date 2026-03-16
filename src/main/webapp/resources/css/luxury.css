@@ -88,7 +88,7 @@ p  { color: var(--text-muted); }
     transition: var(--transition);
 }
 .brand {
-    font-size: 1.2rem;
+    font-size: 2.0rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--text);
