@@ -11,8 +11,7 @@
            http://www.springframework.org/schema/tx
            http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- Enable component scanning - CORRIGÉ POUR VOTRE STRUCTURE -->
-    <!-- Enable component scanning - CORRIGÉ POUR VOTRE STRUCTURE -->
+    
     <context:component-scan base-package="baccalaureat.service, baccalaureat.repository"/>
 
     <!-- Enable annotation-driven transactions -->

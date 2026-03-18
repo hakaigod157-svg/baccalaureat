@@ -61,9 +61,7 @@ public class NoteService {
         return noteRepository.count();
     }
 
-    /**
-     * Vérifie si un paramètre s'applique à un écart donné.
-     */
+    
     public boolean parametreApplique(double ecart, Parametre p) {
         if (p.getOperateur() == null || p.getDiffNotes() == null) return false;
         String op = p.getOperateur().getOperation();
@@ -79,18 +77,13 @@ public class NoteService {
         return false;
     }
 
-    /**
-     * Vérifie si deux paramètres s'appliquent à l'écart des notes d'un candidat pour une matière.
-     */
+   
     public boolean verifierParamDouble(Integer candidatId, Integer matiereId, Parametre p1, Parametre p2) {
         double ecart = calculerEcart(candidatId, matiereId);
         return parametreApplique(ecart, p1) && parametreApplique(ecart, p2);
     }
 
-    /**
-     * Compare deux paramètres pour un même écart de notes et retourne celui qui a le seuil le plus proche
-     * ou le plus petit en cas d'égalité des distances.
-     */
+ 
     public Parametre compareSeuil(Integer candidatId, Integer matiereId, Parametre p1, Parametre p2) {
         if (!verifierParamDouble(candidatId, matiereId, p1, p2)) {
             return null;
@@ -150,10 +143,7 @@ public class NoteService {
         }
     }
 
-    /**
-     * Calcule l'écart total entre toutes les notes d'un candidat pour une matière donnée.
-     * Fait la somme de abs(note_i - note_j) pour toutes les paires (i,j) avec i<j.
-     */
+  
     public double calculerEcart(Integer candidatId, Integer matiereId) {
         List<Note> notes = noteRepository.findByCandidatAndMatiere(candidatId, matiereId);
         double ecartTotal = 0.0;
@@ -165,11 +155,7 @@ public class NoteService {
         return ecartTotal;
     }
 
-    /**
-     * Détermine la note finale d'un candidat pour une matière selon les paramètres.
-     * Cherche le premier paramètre dont la condition correspond à l'écart calculé.
-     * La résolution peut être "moyenne", "min" ou "max".
-     */
+   
     public Double determinerNoteFinale(Integer candidatId, Integer matiereId) {
         List<Note> notes = noteRepository.findByCandidatAndMatiere(candidatId, matiereId);
         if (notes.isEmpty()) return null;
