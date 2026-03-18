@@ -41,8 +41,8 @@ public class CandidatController {
     public ModelAndView nouveau() {
         ModelAndView mav = new ModelAndView("candidat/form");
         mav.addObject("candidat", new Candidat());
-        mav.addObject("ecolesList", ecoleService.getAllEcoles()); // Dropdown
-        mav.addObject("seriesList", serieService.getAllSeries()); // Dropdown
+        mav.addObject("ecolesList", ecoleService.getAllEcoles()); 
+        mav.addObject("seriesList", serieService.getAllSeries()); 
         mav.addObject("titre", "Nouveau Candidat");
         return mav;
     }
