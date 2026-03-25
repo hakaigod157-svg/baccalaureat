@@ -1,6 +1,6 @@
 -- ================================================================
 -- SCRIPT DE RÉINITIALISATION COMPLÈTE — Application Baccalauréat
--- Base: bacc_db | PostgreSQL
+-- Base: baccalaureat_db | PostgreSQL
 -- ================================================================
 -- USAGE:
 --   Via pgAdmin: ouvrez ce fichier et exécutez-le (F5)
@@ -18,8 +18,8 @@ TRUNCATE TABLE
     "Matieres",
     "Candidat",
     "Ecole",
-    serie,
-    professeurs,
+    "serie",
+    "professeurs",
     "Operateur",
     "Resolution"
 RESTART IDENTITY CASCADE;

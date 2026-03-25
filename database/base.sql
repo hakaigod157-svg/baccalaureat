@@ -62,5 +62,5 @@ CREATE TABLE IF NOT EXISTS Parametres(
     idMatiere INTEGER NOT NULL REFERENCES Matieres(idMatiere),
     idOperateur INTEGER NOT NULL REFERENCES Operateur(idOperateur),
     idResolution INTEGER NOT NULL REFERENCES Resolution(idResolution),
-    dateAjout TIMESTAMP
+    dateAjout TIMESTAMP DEFAULT NOW()
 );

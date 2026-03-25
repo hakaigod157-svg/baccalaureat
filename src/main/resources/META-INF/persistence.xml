@@ -8,7 +8,7 @@
     <persistence-unit name="baccalaureatPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         
-        <!-- Entities -->
+        <!-- Entities
         <class>baccalaureat.model.Candidat</class>
         <class>baccalaureat.model.Note</class>
         <class>baccalaureat.model.Matiere</class>
@@ -17,8 +17,16 @@
         <class>baccalaureat.model.Prof</class>
         <class>baccalaureat.model.Parametre</class>
         <class>baccalaureat.model.Resolution</class>
-        <class>baccalaureat.model.Operateur</class>
-        
+        <class>baccalaureat.model.Operateur</class> -->
+        <!-- Entities-->
+
+        <class>forage.model.Client</class>
+        <class>forage.model.Demande</class>
+        <class>forage.model.DemandeStatut</class>
+        <class>forage.model.Devis</class>
+        <class>forage.model.Lieu</class>
+        <class>forage.model.Statut</class>
+        <class>forage.model.TypeDevis</class>
       
     </persistence-unit>
 </persistence>

@@ -1,0 +1,9 @@
+﻿ column_name | is_nullable 
+-------------+-------------
+ id_client   | NO
+ nom         | NO
+ prenom      | NO
+ contact     | NO
+ idclient    | NO
+(5 rows)
+
