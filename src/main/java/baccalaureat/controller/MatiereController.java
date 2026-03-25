@@ -36,7 +36,7 @@ public class MatiereController {
     public ModelAndView nouveau() {
         ModelAndView mav = new ModelAndView("matiere/form");
         mav.addObject("matiere", new Matiere());
-        mav.addObject("seriesList", serieService.getAllSeries()); // Needed for dropdown
+        mav.addObject("seriesList", serieService.getAllSeries()); 
         mav.addObject("titre", "Nouvelle Matière");
         return mav;
     }

@@ -24,7 +24,6 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("titre", "Tableau de Bord");
 
-        // Chaque stat est isolée pour éviter qu'une erreur DB unique plante toute la page
         try { mav.addObject("totalCandidats", candidatService.getAllCandidats().size()); }
         catch (Exception e) { mav.addObject("totalCandidats", "—"); }
 

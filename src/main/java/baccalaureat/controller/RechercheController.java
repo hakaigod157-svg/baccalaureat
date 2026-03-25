@@ -75,11 +75,7 @@ public class RechercheController {
         return mav;
     }
 
-    /**
-     * Notes finales avec formulaire de filtrage.
-     * La première visite (sans paramètres) affiche seulement le formulaire.
-     * Après soumission, resultsReady = true et les données sont calculées.
-     */
+    
     @GetMapping("/notes-finales")
     public ModelAndView notesFinales(
             @RequestParam(required = false) Integer serieId,

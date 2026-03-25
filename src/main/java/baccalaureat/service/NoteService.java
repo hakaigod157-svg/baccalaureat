@@ -61,10 +61,89 @@ public class NoteService {
         return noteRepository.count();
     }
 
-    /**
-     * Calcule l'écart total entre toutes les notes d'un candidat pour une matière donnée.
-     * Fait la somme de abs(note_i - note_j) pour toutes les paires (i,j) avec i<j.
-     */
+    
+    public boolean parametreApplique(double ecart, Parametre p) {
+        if (p.getOperateur() == null || p.getDiffNotes() == null) return false;
+        String op = p.getOperateur().getOperation();
+        double seuil;
+        try { seuil = Double.parseDouble(p.getDiffNotes()); } catch (NumberFormatException e) { return false; }
+
+        switch (op) {
+            case "<":  return ecart < seuil;
+            case ">":  return ecart > seuil;
+            case "<=": return ecart <= seuil;
+            case ">=": return ecart >= seuil;
+        }
+        return false;
+    }
+
+   
+    public boolean verifierParamDouble(Integer candidatId, Integer matiereId, Parametre p1, Parametre p2) {
+        double ecart = calculerEcart(candidatId, matiereId);
+        return parametreApplique(ecart, p1) && parametreApplique(ecart, p2);
+    }
+
+ 
+    public Parametre compareSeuil(Integer candidatId, Integer matiereId, Parametre p1, Parametre p2) {
+        if (!verifierParamDouble(candidatId, matiereId, p1, p2)) {
+            return null;
+        }
+
+        double ecartCandidat = calculerEcart(candidatId, matiereId);
+        double ecartP1 = 0;
+        double ecartP2 = 0;
+
+        try {
+            ecartP1 = Double.parseDouble(p1.getDiffNotes());
+            ecartP2 = Double.parseDouble(p2.getDiffNotes());
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        double diff1 = Math.abs(ecartCandidat - ecartP1);
+        double diff2 = Math.abs(ecartCandidat - ecartP2);
+
+        int etatComparaison = 0;
+        if (diff1 < diff2) {
+            etatComparaison = 1;
+        } else if (diff2 < diff1) {
+            etatComparaison = 2;
+        } else {
+            etatComparaison = 3;
+        }
+
+        switch (etatComparaison) {
+            case 1:
+                return p1;
+            case 2:
+                return p2;
+            case 3:
+                int etatSeuil = 0;
+                boolean isP1PlusPetit = ecartP1 < ecartP2;
+                boolean isP2PlusPetit = ecartP2 < ecartP1;
+                
+                if (isP1PlusPetit) {
+                    etatSeuil = 1;
+                } else if (isP2PlusPetit) {
+                    etatSeuil = 2;
+                } else {
+                    etatSeuil = 1; 
+                }
+
+                switch (etatSeuil) {
+                    case 1:
+                        return p1;
+                    case 2:
+                        return p2;
+                    default:
+                        return p1;
+                }
+            default:
+                return p1;
+        }
+    }
+
+  
     public double calculerEcart(Integer candidatId, Integer matiereId) {
         List<Note> notes = noteRepository.findByCandidatAndMatiere(candidatId, matiereId);
         double ecartTotal = 0.0;
@@ -76,11 +155,7 @@ public class NoteService {
         return ecartTotal;
     }
 
-    /**
-     * Détermine la note finale d'un candidat pour une matière selon les paramètres.
-     * Cherche le premier paramètre dont la condition correspond à l'écart calculé.
-     * La résolution peut être "moyenne", "min" ou "max".
-     */
+   
     public Double determinerNoteFinale(Integer candidatId, Integer matiereId) {
         List<Note> notes = noteRepository.findByCandidatAndMatiere(candidatId, matiereId);
         if (notes.isEmpty()) return null;
@@ -89,34 +164,33 @@ public class NoteService {
         double ecart = calculerEcart(candidatId, matiereId);
 
         List<Parametre> parametres = parametreRepository.findAll();
+        List<Parametre> parametresApplicables = new ArrayList<>();
+
         for (Parametre p : parametres) {
-            // Vérifier si la matière correspond
             if (p.getMatiere() != null && !p.getMatiere().getIdMatiere().equals(matiereId)) continue;
 
-            String op = p.getOperateur() != null ? p.getOperateur().getOperation() : null;
-            String diffStr = p.getDiffNotes();
-            if (op == null || diffStr == null) continue;
-
-            double seuil;
-            try { seuil = Double.parseDouble(diffStr); } catch (NumberFormatException e) { continue; }
-
-            boolean conditionVerifiee = false;
-            switch (op) {
-                case "<":  conditionVerifiee = ecart < seuil;  break;
-                case ">":  conditionVerifiee = ecart > seuil;  break;
-                case "<=": conditionVerifiee = ecart <= seuil; break;
-                case ">=": conditionVerifiee = ecart >= seuil; break;
-                case "=":  conditionVerifiee = ecart == seuil; break;
-            }
-
-            if (conditionVerifiee) {
-                String resolution = p.getResolution() != null ? p.getResolution().getOperation().toLowerCase() : "moyenne";
-                return appliquerResolution(notes, resolution);
+            if (parametreApplique(ecart, p)) {
+                parametresApplicables.add(p);
             }
         }
 
-        // Par défaut : moyenne
-        return appliquerResolution(notes, "moyenne");
+        if (parametresApplicables.isEmpty()) {
+            return appliquerResolution(notes, "moyenne");
+        }
+
+        Parametre parametreChoisi = parametresApplicables.get(0);
+
+        if (parametresApplicables.size() > 1) {
+            for (int i = 1; i < parametresApplicables.size(); i++) {
+                Parametre pCompare = compareSeuil(candidatId, matiereId, parametreChoisi, parametresApplicables.get(i));
+                if (pCompare != null) {
+                    parametreChoisi = pCompare;
+                }
+            }
+        }
+
+        String resolution = parametreChoisi.getResolution() != null ? parametreChoisi.getResolution().getOperation().toLowerCase() : "moyenne";
+        return appliquerResolution(notes, resolution);
     }
 
     private Double appliquerResolution(List<Note> notes, String resolution) {
@@ -130,7 +204,6 @@ public class NoteService {
         } else if (resolution.contains("max") || resolution.contains("haute") || resolution.contains("plus")) {
             return notes.stream().mapToDouble(Note::getValeurNote).max().orElse(0);
         }
-        // défaut : moyenne
         double sum = 0;
         for (Note n : notes) sum += n.getValeurNote();
         return sum / notes.size();
