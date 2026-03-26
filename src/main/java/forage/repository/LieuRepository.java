@@ -42,4 +42,8 @@ public class LieuRepository {
         Lieu l = findById(id);
         if (l != null) delete(l);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(l) FROM Lieu l", Long.class).getSingleResult();
+    }
 }

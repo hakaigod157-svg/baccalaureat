@@ -13,18 +13,21 @@ public class DemandeStatut{
     @Column(name = "idDemandeStatut")
     private Integer idDemandeStatut;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idDemande" , nullable = false)
     private Demande demande;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idDevis")
+    private Devis devis;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idStatut" , nullable = false)
     private Statut statut;
 
-
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Column(name = "date")
-    private LocalDateTime date;
+    @Column(name = "dateDemandeStatut")
+    private LocalDateTime dateDemandeStatut;
 
     public DemandeStatut() {
     }
@@ -45,11 +48,27 @@ public class DemandeStatut{
         this.demande = demande;
     }
 
+    public Devis getDevis() {
+        return devis;
+    }
+
+    public void setDevis(Devis devis) {
+        this.devis = devis;
+    }
+
     public Statut getStatut() {
         return statut;
     }
 
     public void setStatut(Statut statut) {
         this.statut = statut;
+    }
+
+    public LocalDateTime getDateDemandeStatut() {
+        return dateDemandeStatut;
+    }
+
+    public void setDateDemandeStatut(LocalDateTime dateDemandeStatut) {
+        this.dateDemandeStatut = dateDemandeStatut;
     }
 }

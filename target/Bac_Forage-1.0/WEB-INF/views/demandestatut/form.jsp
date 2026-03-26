@@ -26,12 +26,27 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Devis :</label>
+                    <form:select path="devis" class="form-control">
+                        <form:option value="">-- Aucun devis --</form:option>
+                        <c:forEach items="${devisList}" var="dv">
+                            <form:option value="${dv.idDevis}">Devis N°${dv.idDevis} - ${dv.typeDevis.libelle}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+
+                <div class="form-group">
                     <label>Statut :</label>
                     <form:select path="statut" class="form-control">
                         <c:forEach items="${statutsList}" var="s">
                             <form:option value="${s.idStatut}">${s.libelle}</form:option>
                         </c:forEach>
                     </form:select>
+                </div>
+
+                <div class="form-group">
+                    <label>Date :</label>
+                    <form:input path="dateDemandeStatut" type="datetime-local" class="form-control" />
                 </div>
 
                 <div class="form-actions">

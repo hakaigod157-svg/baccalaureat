@@ -44,4 +44,15 @@ public class DevisRepository {
         Devis d = findById(id);
         if (d != null) delete(d);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(d) FROM Devis d", Long.class).getSingleResult();
+    }
+
+    public List<Devis> findRecent(int max) {
+        return entityManager.createQuery(
+            "SELECT d FROM Devis d LEFT JOIN FETCH d.demande LEFT JOIN FETCH d.typeDevis LEFT JOIN FETCH d.statut ORDER BY d.date DESC", Devis.class)
+            .setMaxResults(max)
+            .getResultList();
+    }
 }

@@ -2,11 +2,9 @@ package forage.controller;
 
 import forage.model.DetailsDevis;
 import forage.model.Devis;
-import forage.model.Lieu;
 import forage.model.Statut;
 import forage.service.DetailsDevisService;
 import forage.service.DevisService;
-import forage.service.LieuService;
 import forage.service.StatutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +21,6 @@ public class DetailsDevisController {
     @Autowired
     private DevisService devisService;
     @Autowired
-    private LieuService lieuService;
-    @Autowired
     private StatutService statutService;
 
     @InitBinder
@@ -33,12 +29,6 @@ public class DetailsDevisController {
             @Override
             public void setAsText(String text) {
                 try { setValue(devisService.getDevisById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
-            }
-        });
-        binder.registerCustomEditor(Lieu.class, new java.beans.PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                try { setValue(lieuService.getLieuById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
             }
         });
         binder.registerCustomEditor(Statut.class, new java.beans.PropertyEditorSupport() {
@@ -51,43 +41,58 @@ public class DetailsDevisController {
 
     @GetMapping("/liste")
     public ModelAndView liste() {
-        ModelAndView mav = new ModelAndView("detailsdevis/liste");
-        mav.addObject("details", detailsDevisService.getAllDetailsDevis());
-        mav.addObject("titre", "Détails Devis");
+        ModelAndView mav = new ModelAndView("detailsdevis/choix");
+        mav.addObject("devisList", devisService.getAllDevis());
+        mav.addObject("titre", "Choisir un Devis");
         return mav;
     }
 
-    @GetMapping("/nouveau")
-    public ModelAndView nouveau() {
+    @GetMapping("/devis/{idDevis}")
+    public ModelAndView detailsParDevis(@PathVariable Integer idDevis) {
+        ModelAndView mav = new ModelAndView("detailsdevis/liste");
+        Devis devis = devisService.getDevisById(idDevis);
+        mav.addObject("devis", devis);
+        mav.addObject("details", detailsDevisService.getDetailsDevisByDevisId(idDevis));
+        mav.addObject("titre", "Détails du Devis N°" + idDevis);
+        return mav;
+    }
+
+    @GetMapping("/devis/{idDevis}/nouveau")
+    public ModelAndView nouveau(@PathVariable Integer idDevis) {
         ModelAndView mav = new ModelAndView("detailsdevis/form");
-        mav.addObject("detail", new DetailsDevis());
-        mav.addObject("devisList", devisService.getAllDevis());
-        mav.addObject("lieusList", lieuService.getAllLieus());
+        DetailsDevis detail = new DetailsDevis();
+        detail.setDevis(devisService.getDevisById(idDevis));
+        mav.addObject("detail", detail);
+        mav.addObject("idDevis", idDevis);
         mav.addObject("statutsList", statutService.getAllStatuts());
-        mav.addObject("titre", "Nouveau Détail Devis");
+        mav.addObject("titre", "Nouveau Détail — Devis N°" + idDevis);
         return mav;
     }
 
     @PostMapping("/sauvegarder")
     public String sauvegarder(@ModelAttribute DetailsDevis detail) {
         detailsDevisService.saveDetailsDevis(detail);
-        return "redirect:/detailsdevis/liste";
+        Integer idDevis = detail.getDevis().getIdDevis();
+        return "redirect:/detailsdevis/devis/" + idDevis;
     }
 
     @GetMapping("/modifier/{id}")
     public ModelAndView modifier(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("detailsdevis/form");
-        mav.addObject("detail", detailsDevisService.getDetailsDevisById(id));
-        mav.addObject("devisList", devisService.getAllDevis());
-        mav.addObject("lieusList", lieuService.getAllLieus());
+        DetailsDevis detail = detailsDevisService.getDetailsDevisById(id);
+        Integer idDevis = detail.getDevis().getIdDevis();
+        mav.addObject("detail", detail);
+        mav.addObject("idDevis", idDevis);
         mav.addObject("statutsList", statutService.getAllStatuts());
-        mav.addObject("titre", "Modifier Détail Devis");
+        mav.addObject("titre", "Modifier Détail — Devis N°" + idDevis);
         return mav;
     }
 
     @GetMapping("/supprimer/{id}")
     public String supprimer(@PathVariable Integer id) {
+        DetailsDevis detail = detailsDevisService.getDetailsDevisById(id);
+        Integer idDevis = detail.getDevis().getIdDevis();
         detailsDevisService.deleteDetailsDevisById(id);
-        return "redirect:/detailsdevis/liste";
+        return "redirect:/detailsdevis/devis/" + idDevis;
     }
 }

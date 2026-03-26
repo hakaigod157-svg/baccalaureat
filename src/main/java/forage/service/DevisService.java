@@ -34,4 +34,12 @@ public class DevisService {
     public void deleteDevisById(Integer id) {
         devisRepository.deleteById(id);
     }
+
+    public Long countDevis() {
+        return devisRepository.count();
+    }
+
+    public List<Devis> getRecentDevis(int max) {
+        return devisRepository.findRecent(max);
+    }
 }

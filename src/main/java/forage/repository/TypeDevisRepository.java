@@ -42,4 +42,8 @@ public class TypeDevisRepository {
         TypeDevis t = findById(id);
         if (t != null) delete(t);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(t) FROM TypeDevis t", Long.class).getSingleResult();
+    }
 }

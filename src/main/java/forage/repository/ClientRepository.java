@@ -41,4 +41,8 @@ public class ClientRepository {
         Client c = findById(id);
         if (c != null) delete(c);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(c) FROM Client c", Long.class).getSingleResult();
+    }
 }

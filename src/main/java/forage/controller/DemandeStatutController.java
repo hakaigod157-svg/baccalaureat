@@ -2,9 +2,11 @@ package forage.controller;
 
 import forage.model.DemandeStatut;
 import forage.model.Demande;
+import forage.model.Devis;
 import forage.model.Statut;
 import forage.service.DemandeStatutService;
 import forage.service.DemandeService;
+import forage.service.DevisService;
 import forage.service.StatutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class DemandeStatutController {
     @Autowired
     private DemandeService demandeService;
     @Autowired
+    private DevisService devisService;
+    @Autowired
     private StatutService statutService;
 
     @InitBinder
@@ -29,6 +33,12 @@ public class DemandeStatutController {
             @Override
             public void setAsText(String text) {
                 try { setValue(demandeService.getDemandeById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
+            }
+        });
+        binder.registerCustomEditor(Devis.class, new java.beans.PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                try { setValue(devisService.getDevisById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
             }
         });
         binder.registerCustomEditor(Statut.class, new java.beans.PropertyEditorSupport() {
@@ -52,6 +62,7 @@ public class DemandeStatutController {
         ModelAndView mav = new ModelAndView("demandestatut/form");
         mav.addObject("demandeStatut", new DemandeStatut());
         mav.addObject("demandesList", demandeService.getAllDemandes());
+        mav.addObject("devisList", devisService.getAllDevis());
         mav.addObject("statutsList", statutService.getAllStatuts());
         mav.addObject("titre", "Nouveau Statut Demande");
         return mav;
@@ -68,6 +79,7 @@ public class DemandeStatutController {
         ModelAndView mav = new ModelAndView("demandestatut/form");
         mav.addObject("demandeStatut", demandeStatutService.getDemandeStatutById(id));
         mav.addObject("demandesList", demandeService.getAllDemandes());
+        mav.addObject("devisList", devisService.getAllDevis());
         mav.addObject("statutsList", statutService.getAllStatuts());
         mav.addObject("titre", "Modifier Statut Demande");
         return mav;

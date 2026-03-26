@@ -21,7 +21,9 @@
                         <tr>
                             <th>N° Ligne</th>
                             <th>Demande</th>
-                            <th>Statut Actuel</th>
+                            <th>Devis</th>
+                            <th>Statut</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -30,7 +32,14 @@
                             <tr>
                                 <td>${item.idDemandeStatut}</td>
                                 <td>Demande N°${item.demande.idDemande}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${item.devis != null}">Devis N°${item.devis.idDevis}</c:when>
+                                        <c:otherwise>-</c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${item.statut.libelle}</td>
+                                <td>${item.dateDemandeStatut}</td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/demandestatut/modifier/${item.idDemandeStatut}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <a href="${pageContext.request.contextPath}/demandestatut/supprimer/${item.idDemandeStatut}" class="btn btn-sm btn-danger" onclick="return confirm('Sûr ?');">Supprimer</a>

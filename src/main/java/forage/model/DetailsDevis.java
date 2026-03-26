@@ -1,32 +1,30 @@
 package forage.model;
 
 import javax.persistence.*;
-// import forage.model.*;
 
 @Entity
-@Table(name="DetailsDevis")
+@Table(name="DetailDevis")
 public class DetailsDevis {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idDetailsDevis")
+    @Column(name="idDetailDevis")
     private Integer idDetailsDevis;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idDevis" , nullable = false)
     private Devis devis;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idLieu" , nullable = false)
-    private Lieu lieu;
-
-    @Column(name = "montant", precision = 10 , scale=2)
-    private Double montant;
 
     @Column(name = "libelle", length = 50)
     private String libelle;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Column(name = "prixUnitaire", precision = 10, scale = 2)
+    private Double prixUnitaire;
+
+    @Column(name = "quantite")
+    private Integer quantite;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idStatut" , nullable = false)
     private Statut statut;
 
@@ -49,28 +47,28 @@ public class DetailsDevis {
         this.devis = devis;
     }
 
-    public Lieu getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(Lieu lieu) {
-        this.lieu = lieu;
-    }
-
-    public Double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(Double montant) {
-        this.montant = montant;
-    }
-
     public String getLibelle() {
         return libelle;
     }
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+
+    public Double getPrixUnitaire() {
+        return prixUnitaire;
+    }
+
+    public void setPrixUnitaire(Double prixUnitaire) {
+        this.prixUnitaire = prixUnitaire;
+    }
+
+    public Integer getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(Integer quantite) {
+        this.quantite = quantite;
     }
 
     public Statut getStatut() {

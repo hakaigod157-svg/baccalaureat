@@ -27,7 +27,14 @@ public class DetailsDevisRepository {
     
     public List<DetailsDevis> findAll() {
         return entityManager.createQuery(
-            "SELECT d FROM DetailsDevis d LEFT JOIN FETCH d.devis LEFT JOIN FETCH d.lieu LEFT JOIN FETCH d.statut", DetailsDevis.class)
+            "SELECT d FROM DetailsDevis d LEFT JOIN FETCH d.devis LEFT JOIN FETCH d.statut", DetailsDevis.class)
+            .getResultList();
+    }
+
+    public List<DetailsDevis> findByDevisId(Integer idDevis) {
+        return entityManager.createQuery(
+            "SELECT d FROM DetailsDevis d LEFT JOIN FETCH d.devis LEFT JOIN FETCH d.statut WHERE d.devis.idDevis = :idDevis", DetailsDevis.class)
+            .setParameter("idDevis", idDevis)
             .getResultList();
     }
     
@@ -42,5 +49,9 @@ public class DetailsDevisRepository {
     public void deleteById(Integer id) {
         DetailsDevis d = findById(id);
         if (d != null) delete(d);
+    }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(d) FROM DetailsDevis d", Long.class).getSingleResult();
     }
 }

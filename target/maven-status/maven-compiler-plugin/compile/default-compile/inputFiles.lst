@@ -14,6 +14,7 @@ C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\LieuService.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\service\ResolutionService.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\DemandeService.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\controller\ParametreController.java
+C:\Users\ravak\Desktop\BacFin\src\main\java\forage\repository\PrixTotalDevisRepository.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\repository\SerieRepository.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\DevisController.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\controller\ResolutionController.java
@@ -22,7 +23,6 @@ C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\model\Note.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\model\DetailsDevis.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\model\Prof.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\repository\MatiereRepository.java
-C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\HomeController.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\model\Client.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\model\Resolution.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\TypeDevisService.java
@@ -46,7 +46,9 @@ C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\repository\EcoleReposit
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\model\Lieu.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\DemandeStatutController.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\LieuController.java
+C:\Users\ravak\Desktop\BacFin\src\main\java\forage\model\PrixTotalDevis.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\model\Demande.java
+C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\PrixTotalDevisService.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\repository\StatutRepository.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\DevisService.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\controller\EcoleController.java
@@ -62,6 +64,7 @@ C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\model\Candidat.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\model\Operateur.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\repository\CandidatRepository.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\ClientController.java
+C:\Users\ravak\Desktop\BacFin\src\main\java\forage\controller\DashboardController.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\controller\CandidatController.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\baccalaureat\repository\ParametreRepository.java
 C:\Users\ravak\Desktop\BacFin\src\main\java\forage\service\StatutService.java

@@ -44,4 +44,15 @@ public class DemandeRepository {
         Demande d = findById(id);
         if (d != null) delete(d);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(d) FROM Demande d", Long.class).getSingleResult();
+    }
+
+    public List<Demande> findRecent(int max) {
+        return entityManager.createQuery(
+            "SELECT d FROM Demande d LEFT JOIN FETCH d.client LEFT JOIN FETCH d.lieu ORDER BY d.dateDemande DESC", Demande.class)
+            .setMaxResults(max)
+            .getResultList();
+    }
 }

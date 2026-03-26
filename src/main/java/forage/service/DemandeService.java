@@ -34,4 +34,12 @@ public class DemandeService {
     public void deleteDemandeById(Integer id) {
         demandeRepository.deleteById(id);
     }
+
+    public Long countDemandes() {
+        return demandeRepository.count();
+    }
+
+    public List<Demande> getRecentDemandes(int max) {
+        return demandeRepository.findRecent(max);
+    }
 }
