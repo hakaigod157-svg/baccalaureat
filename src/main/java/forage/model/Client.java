@@ -1,7 +1,6 @@
 package forage.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 // import baccalaureat.model.Ecole;
 // import baccalaureat.model.Serie;

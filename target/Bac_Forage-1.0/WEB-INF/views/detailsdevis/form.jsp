@@ -15,23 +15,21 @@
         <div class="form-container">
             <form:form action="${pageContext.request.contextPath}/detailsdevis/sauvegarder" method="post" modelAttribute="detail">
                 <form:hidden path="idDetailsDevis" />
-                
+                <form:hidden path="devis" value="${idDevis}" />
+
                 <div class="form-group">
-                    <label>Devis :</label>
-                    <form:select path="devis" class="form-control">
-                        <c:forEach items="${devisList}" var="d">
-                            <form:option value="${d.idDevis}">Devis N°${d.idDevis} - ${d.typeDevis.libelle}</form:option>
-                        </c:forEach>
-                    </form:select>
+                    <label>Libellé :</label>
+                    <form:input path="libelle" class="form-control" />
                 </div>
-                
+
                 <div class="form-group">
-                    <label>Lieu :</label>
-                    <form:select path="lieu" class="form-control">
-                        <c:forEach items="${lieusList}" var="l">
-                            <form:option value="${l.idLieu}">${l.localisation} - ${l.district}</form:option>
-                        </c:forEach>
-                    </form:select>
+                    <label>Prix Unitaire :</label>
+                    <form:input path="prixUnitaire" type="number" step="0.01" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Quantité :</label>
+                    <form:input path="quantite" type="number" min="1" class="form-control" />
                 </div>
 
                 <div class="form-group">
@@ -43,20 +41,9 @@
                     </form:select>
                 </div>
 
-                <div class="form-group">
-                    <label>Libellé (Détail) :</label>
-                    <form:input path="libelle" class="form-control" />
-                </div>
-
-                <div class="form-group">
-                    <label>Montant :</label>
-                    <form:input path="montant" type="number" step="0.01" class="form-control" />
-                </div>
-                
-
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <a href="${pageContext.request.contextPath}/detailsdevis/liste" class="btn btn-secondary">Annuler</a>
+                    <a href="${pageContext.request.contextPath}/detailsdevis/devis/${idDevis}" class="btn btn-secondary">Annuler</a>
                 </div>
             </form:form>
         </div>

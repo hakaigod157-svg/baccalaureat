@@ -1,18 +1,16 @@
 package forage.controller;
 
-import forage.model.Devis;
-import forage.model.Demande;
-import forage.model.TypeDevis;
-import forage.model.Statut;
-import forage.service.DevisService;
-import forage.service.DemandeService;
-import forage.service.TypeDevisService;
-import forage.service.StatutService;
+import forage.model.*;
+import forage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.WebDataBinder;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/devis")
@@ -26,6 +24,10 @@ public class DevisController {
     private TypeDevisService typeDevisService;
     @Autowired
     private StatutService statutService;
+    @Autowired
+    private DetailsDevisService detailsDevisService;
+    @Autowired
+    private PrixTotalDevisService prixTotalDevisService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -68,9 +70,59 @@ public class DevisController {
         return mav;
     }
 
+    @GetMapping("/demande/{id}")
+    @ResponseBody
+    public Map<String, Object> getDemandeInfo(@PathVariable Integer id) {
+        Demande d = demandeService.getDemandeById(id);
+        Map<String, Object> info = new HashMap<>();
+        if (d != null) {
+            info.put("idDemande", d.getIdDemande());
+            info.put("clientNom", d.getClient() != null ? d.getClient().getNom() : "");
+            info.put("clientPrenom", d.getClient() != null ? d.getClient().getPrenom() : "");
+            info.put("dateDemande", d.getDateDemande() != null ? d.getDateDemande().toString() : "");
+            info.put("lieu", d.getLieu() != null ? d.getLieu().getLocalisation() + " - " + d.getLieu().getDistrict() : "");
+        }
+        return info;
+    }
+
     @PostMapping("/sauvegarder")
-    public String sauvegarder(@ModelAttribute Devis devis) {
-        devisService.saveDevis(devis);
+    public String sauvegarder(@ModelAttribute Devis devis, HttpServletRequest request) {
+        Devis savedDevis = devisService.saveDevis(devis);
+
+        String[] libelles = request.getParameterValues("detail_libelle");
+        String[] prixUnitaires = request.getParameterValues("detail_prixUnitaire");
+        String[] quantites = request.getParameterValues("detail_quantite");
+        String[] statutIds = request.getParameterValues("detail_statut");
+
+        double montantTotal = 0;
+
+        if (libelles != null) {
+            for (int i = 0; i < libelles.length; i++) {
+                if (libelles[i] == null || libelles[i].trim().isEmpty()) continue;
+
+                DetailsDevis detail = new DetailsDevis();
+                detail.setDevis(savedDevis);
+                detail.setLibelle(libelles[i]);
+                double pu = Double.parseDouble(prixUnitaires[i]);
+                int qty = Integer.parseInt(quantites[i]);
+                detail.setPrixUnitaire(pu);
+                detail.setQuantite(qty);
+
+                if (statutIds != null && i < statutIds.length) {
+                    Statut s = statutService.getStatutById(Integer.parseInt(statutIds[i]));
+                    detail.setStatut(s);
+                }
+
+                detailsDevisService.saveDetailsDevis(detail);
+                montantTotal += pu * qty;
+            }
+        }
+
+        PrixTotalDevis prixTotal = new PrixTotalDevis();
+        prixTotal.setDevis(savedDevis);
+        prixTotal.setMontantTotal(montantTotal);
+        prixTotalDevisService.savePrixTotalDevis(prixTotal);
+
         return "redirect:/devis/liste";
     }
 

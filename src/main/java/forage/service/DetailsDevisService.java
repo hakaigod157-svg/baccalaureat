@@ -34,4 +34,12 @@ public class DetailsDevisService {
     public void deleteDetailsDevisById(Integer id) {
         detailsDevisRepository.deleteById(id);
     }
+
+    public List<DetailsDevis> getDetailsDevisByDevisId(Integer idDevis) {
+        return detailsDevisRepository.findByDevisId(idDevis);
+    }
+
+    public Long countDetailsDevis() {
+        return detailsDevisRepository.count();
+    }
 }

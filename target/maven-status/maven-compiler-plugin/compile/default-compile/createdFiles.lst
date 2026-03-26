@@ -5,8 +5,8 @@ baccalaureat\service\ParametreService.class
 forage\model\Statut.class
 baccalaureat\controller\NoteController$3.class
 forage\controller\DemandeController$2.class
-forage\controller\HomeController.class
 baccalaureat\controller\ProfController.class
+forage\service\PrixTotalDevisService.class
 baccalaureat\controller\ParametreController$2.class
 forage\controller\DevisController.class
 forage\service\TypeDevisService.class
@@ -22,9 +22,11 @@ baccalaureat\model\Note.class
 forage\controller\LieuController.class
 baccalaureat\service\ResolutionService.class
 forage\service\ClientService.class
+forage\controller\DashboardController.class
 baccalaureat\repository\ParametreRepository.class
 forage\config\WebConfig.class
 baccalaureat\model\Parametre.class
+forage\repository\PrixTotalDevisRepository.class
 baccalaureat\controller\ParametreController$3.class
 baccalaureat\controller\NoteController$2.class
 forage\repository\ClientRepository.class
@@ -43,6 +45,7 @@ baccalaureat\controller\CandidatController.class
 forage\controller\DemandeStatutController.class
 forage\controller\DevisController$1.class
 forage\controller\DemandeController$1.class
+forage\model\PrixTotalDevis.class
 forage\repository\StatutRepository.class
 baccalaureat\controller\OperateurController.class
 baccalaureat\controller\ParametreController.class
@@ -57,7 +60,6 @@ baccalaureat\model\Resolution.class
 forage\model\Devis.class
 forage\service\LieuService.class
 baccalaureat\model\Prof.class
-forage\controller\DetailsDevisController$3.class
 forage\service\StatutService.class
 forage\repository\DemandeRepository.class
 baccalaureat\controller\NoteController.class
@@ -79,6 +81,7 @@ baccalaureat\repository\SerieRepository.class
 baccalaureat\controller\NoteController$1.class
 forage\repository\LieuRepository.class
 baccalaureat\controller\MatiereController$1.class
+forage\controller\DemandeStatutController$3.class
 forage\service\DetailsDevisService.class
 baccalaureat\service\SerieService.class
 forage\service\DemandeService.class

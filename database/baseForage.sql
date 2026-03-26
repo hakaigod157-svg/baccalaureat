@@ -28,39 +28,38 @@ CREATE TABLE TypeDevis(
     libelle VARCHAR(50)
 );
 
-CREATE TABLE Devis(
-    idDevis SERIAL PRIMARY KEY,
-    dateDevis TIMESTAMP DEFAULT NOW(),
-    idDemande INTEGER NOT NULL REFERENCES Demande(idDemande),
-    idTypeDevis INTEGER NOT NULL REFERENCES TypeDevis(idTypeDevis),
-    montantTotal DECIMAL(10,2),
-    idStatut INTEGER NOT NULL REFERENCES Statut(idStatut)
-);
-
-
--- CREATE TABLE Travaux(
---     idTravaux SERIAL PRIMARY KEY,
---     idDemande INTEGER NOT NULL REFERENCES Demande(idDemande),
---     dateTravaux TIMESTAMP DEFAULT NOW()
--- );
-
 CREATE TABLE Statut(
     idStatut SERIAL PRIMARY KEY,
     libelle VARCHAR(50)
 );
 
+CREATE TABLE Devis(
+    idDevis SERIAL PRIMARY KEY,
+    dateDevis TIMESTAMP DEFAULT NOW(),
+    idDemande INTEGER NOT NULL REFERENCES Demande(idDemande),
+    idTypeDevis INTEGER NOT NULL REFERENCES TypeDevis(idTypeDevis),
+    idStatut INTEGER NOT NULL REFERENCES Statut(idStatut)
+);
+
 CREATE TABLE DetailDevis(
     idDetailDevis SERIAL PRIMARY KEY,
     idDevis INTEGER NOT NULL REFERENCES Devis(idDevis),
-    idLieu INTEGER NOT NULL REFERENCES Lieu(idLieu),
-    montant DECIMAL(10,2),
     libelle VARCHAR(50),
+    prixUnitaire DECIMAL(10,2),
+    quantite INTEGER,
     idStatut INTEGER NOT NULL REFERENCES Statut(idStatut)
+);
+
+CREATE TABLE PrixTotalDevis(
+    idPrixTotalDevis SERIAL PRIMARY KEY,
+    idDevis INTEGER NOT NULL REFERENCES Devis(idDevis),
+    montantTotal DECIMAL(10,2)
 );
 
 CREATE TABLE DemandeStatut(
     idDemandeStatut SERIAL PRIMARY KEY ,
     idDemande INTEGER NOT NULL REFERENCES Demande(idDemande),
+    idDevis INTEGER REFERENCES Devis(idDevis),
     idStatut INTEGER NOT NULL REFERENCES Statut(idStatut),
     dateDemandeStatut TIMESTAMP DEFAULT NOW()
 );

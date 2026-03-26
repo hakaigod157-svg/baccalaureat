@@ -34,4 +34,8 @@ public class DemandeStatutService {
     public void deleteDemandeStatutById(Integer id) {
         demandeStatutRepository.deleteById(id);
     }
+
+    public Long countDemandeStatuts() {
+        return demandeStatutRepository.count();
+    }
 }

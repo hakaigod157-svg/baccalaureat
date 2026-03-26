@@ -34,4 +34,8 @@ public class TypeDevisService {
     public void deleteTypeDevisById(Integer id) {
         typeDevisRepository.deleteById(id);
     }
+
+    public Long countTypeDevis() {
+        return typeDevisRepository.count();
+    }
 }

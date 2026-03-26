@@ -34,4 +34,8 @@ public class StatutService {
     public void deleteStatutById(Integer id) {
         statutRepository.deleteById(id);
     }
+
+    public Long countStatuts() {
+        return statutRepository.count();
+    }
 }

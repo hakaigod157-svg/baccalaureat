@@ -28,7 +28,7 @@ public class DemandeStatutRepository {
     
     public List<DemandeStatut> findAll() {
         return entityManager.createQuery(
-            "SELECT d FROM DemandeStatut d LEFT JOIN FETCH d.demande LEFT JOIN FETCH d.statut", DemandeStatut.class)
+            "SELECT d FROM DemandeStatut d LEFT JOIN FETCH d.demande LEFT JOIN FETCH d.statut LEFT JOIN FETCH d.devis", DemandeStatut.class)
             .getResultList();
     }
     
@@ -43,6 +43,10 @@ public class DemandeStatutRepository {
     public void deleteById(Integer id) {
         DemandeStatut d = findById(id);
         if (d != null) delete(d);
+    }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(d) FROM DemandeStatut d", Long.class).getSingleResult();
     }
 
     public DemandeStatut lastStatut(Integer idDemande) {

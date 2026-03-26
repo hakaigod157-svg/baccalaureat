@@ -23,7 +23,6 @@
                             <th>Client (Demande)</th>
                             <th>Type</th>
                             <th>Statut</th>
-                            <th>Montant</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -35,7 +34,6 @@
                                 <td>${item.demande.client.nom} (Demande N°${item.demande.idDemande})</td>
                                 <td>${item.typeDevis.libelle}</td>
                                 <td>${item.statut.libelle}</td>
-                                <td>${item.montantTotal}</td>
                                 <td>${item.date}</td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/devis/modifier/${item.idDevis}" class="btn btn-sm btn-secondary">Modifier</a>

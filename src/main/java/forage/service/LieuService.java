@@ -34,4 +34,8 @@ public class LieuService {
     public void deleteLieuById(Integer id) {
         lieuRepository.deleteById(id);
     }
+
+    public Long countLieux() {
+        return lieuRepository.count();
+    }
 }

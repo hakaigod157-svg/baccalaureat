@@ -42,4 +42,8 @@ public class StatutRepository {
         Statut s = findById(id);
         if (s != null) delete(s);
     }
+
+    public Long count() {
+        return entityManager.createQuery("SELECT COUNT(s) FROM Statut s", Long.class).getSingleResult();
+    }
 }
