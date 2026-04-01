@@ -24,10 +24,6 @@ public class DetailsDevis {
     @Column(name = "quantite")
     private Integer quantite;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idStatut" , nullable = false)
-    private Statut statut;
-
     public DetailsDevis() {
     }
 
@@ -69,13 +65,5 @@ public class DetailsDevis {
 
     public void setQuantite(Integer quantite) {
         this.quantite = quantite;
-    }
-
-    public Statut getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Statut statut) {
-        this.statut = statut;
     }
 }

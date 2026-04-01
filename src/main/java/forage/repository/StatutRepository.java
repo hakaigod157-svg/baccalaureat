@@ -43,6 +43,16 @@ public class StatutRepository {
         if (s != null) delete(s);
     }
 
+    public Statut findByLibelle(String libelle) {
+        try {
+            return entityManager.createQuery("SELECT s FROM Statut s WHERE s.libelle = :libelle", Statut.class)
+                    .setParameter("libelle", libelle)
+                    .getSingleResult();
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
+    }
+
     public Long count() {
         return entityManager.createQuery("SELECT COUNT(s) FROM Statut s", Long.class).getSingleResult();
     }

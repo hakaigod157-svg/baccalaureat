@@ -50,9 +50,11 @@ public class DemandeStatutRepository {
     }
 
     public DemandeStatut lastStatut(Integer idDemande) {
-        return entityManager.createQuery(
-            "SELECT ds FROM DemandeStatut ds WHERE ds.idDemande = :idDemande ORDER BY ds.dateDemandeStatut DESC", DemandeStatut.class)
+        List<DemandeStatut> list = entityManager.createQuery(
+            "SELECT ds FROM DemandeStatut ds WHERE ds.demande.idDemande = :idDemande ORDER BY ds.dateDemandeStatut DESC", DemandeStatut.class)
             .setParameter("idDemande", idDemande)
-            .getSingleResult();
+            .setMaxResults(1)
+            .getResultList();
+        return list.isEmpty() ? null : list.get(0);
     }
 }
