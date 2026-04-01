@@ -49,7 +49,7 @@ public class DemandeStatutRepository {
         return entityManager.createQuery("SELECT COUNT(d) FROM DemandeStatut d", Long.class).getSingleResult();
     }
 
-    public DemandeStatut lastStatut(Integer idDemande) {
+    public DemandeStatut getStatutDemandeFarany(Integer idDemande) {
         List<DemandeStatut> list = entityManager.createQuery(
             "SELECT ds FROM DemandeStatut ds WHERE ds.demande.idDemande = :idDemande ORDER BY ds.dateDemandeStatut DESC", DemandeStatut.class)
             .setParameter("idDemande", idDemande)

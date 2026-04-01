@@ -83,7 +83,7 @@ public class DevisController {
             info.put("dateDemande", d.getDateDemande() != null ? d.getDateDemande().toString() : "");
             info.put("lieu", d.getLieu() != null ? d.getLieu().getLocalisation() + " - " + d.getLieu().getDistrict() : "");
             
-            DemandeStatut dernierStatut = demandeStatutService.getLastStatutByDemande(id);
+            DemandeStatut dernierStatut = demandeStatutService.getStatutDemandeFarany(id);
             if (dernierStatut != null && dernierStatut.getStatut() != null) {
                 info.put("etatDemande", dernierStatut.getStatut().getLibelle());
             } else {

@@ -39,7 +39,7 @@ public class DemandeStatutService {
         return demandeStatutRepository.count();
     }
 
-    public DemandeStatut getLastStatutByDemande(Integer id) {
-        return demandeStatutRepository.lastStatut(id);
+    public DemandeStatut getStatutDemandeFarany(Integer id) {
+        return demandeStatutRepository.getStatutDemandeFarany(id);
     }
 }
