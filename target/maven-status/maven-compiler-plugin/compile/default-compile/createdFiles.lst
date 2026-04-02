@@ -31,7 +31,6 @@ baccalaureat\controller\ParametreController$3.class
 baccalaureat\controller\NoteController$2.class
 forage\repository\ClientRepository.class
 baccalaureat\model\Ecole.class
-forage\controller\DetailsDevisController$2.class
 baccalaureat\repository\ResolutionRepository.class
 forage\model\DemandeStatut.class
 forage\controller\DemandeStatutController$1.class

@@ -3,16 +3,16 @@ package forage.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="DetailDevis")
+@Table(name = "DetailDevis")
 public class DetailsDevis {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idDetailDevis")
+    @Column(name = "idDetailDevis")
     private Integer idDetailsDevis;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idDevis" , nullable = false)
+    @JoinColumn(name = "idDevis", nullable = false)
     private Devis devis;
 
     @Column(name = "libelle", length = 50)
