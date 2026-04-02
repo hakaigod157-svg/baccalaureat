@@ -62,6 +62,7 @@
                     <p><span class="label">Client :</span> <span id="infoClient">-</span></p>
                     <p><span class="label">Date Demande :</span> <span id="infoDate">-</span></p>
                     <p><span class="label">Lieu :</span> <span id="infoLieu">-</span></p>
+                    <p><span class="label">Etat de la demande :</span> <span id="infoEtat">-</span></p>
                 </div>
 
                 <div class="form-group">
@@ -69,15 +70,6 @@
                     <form:select path="typeDevis" class="form-control">
                         <c:forEach items="${typesList}" var="t">
                             <form:option value="${t.idTypeDevis}">${t.libelle}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-
-                <div class="form-group">
-                    <label>Statut du Devis :</label>
-                    <form:select path="statut" class="form-control">
-                        <c:forEach items="${statutsList}" var="s">
-                            <form:option value="${s.idStatut}">${s.libelle}</form:option>
                         </c:forEach>
                     </form:select>
                 </div>
@@ -97,7 +89,6 @@
                                 <th>Prix Unitaire</th>
                                 <th>Quantité</th>
                                 <th>Montant</th>
-                                <th>Statut</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -123,12 +114,6 @@
     <script>
         var contextPath = '${pageContext.request.contextPath}';
 
-        var statuts = [
-            <c:forEach items="${statutsList}" var="s" varStatus="loop">
-                { id: ${s.idStatut}, libelle: '${s.libelle}' }<c:if test="${!loop.last}">,</c:if>
-            </c:forEach>
-        ];
-
         function chargerInfoDemande() {
             var select = document.getElementById('selectDemande');
             var idDemande = select.value;
@@ -147,6 +132,7 @@
                     document.getElementById('infoClient').textContent = data.clientNom + ' ' + data.clientPrenom;
                     document.getElementById('infoDate').textContent = data.dateDemande || '-';
                     document.getElementById('infoLieu').textContent = data.lieu || '-';
+                    document.getElementById('infoEtat').textContent = data.etatDemande || '-';
                     infoDiv.classList.add('visible');
                 }
             };
@@ -193,19 +179,6 @@
             tdMontant.className = 'montant-cell';
             tdMontant.textContent = '0.00';
             row.appendChild(tdMontant);
-
-            var tdStatut = document.createElement('td');
-            var selectStatut = document.createElement('select');
-            selectStatut.name = 'detail_statut';
-            selectStatut.className = 'form-control';
-            for (var i = 0; i < statuts.length; i++) {
-                var opt = document.createElement('option');
-                opt.value = statuts[i].id;
-                opt.textContent = statuts[i].libelle;
-                selectStatut.appendChild(opt);
-            }
-            tdStatut.appendChild(selectStatut);
-            row.appendChild(tdStatut);
 
             var tdDel = document.createElement('td');
             var btnDel = document.createElement('button');

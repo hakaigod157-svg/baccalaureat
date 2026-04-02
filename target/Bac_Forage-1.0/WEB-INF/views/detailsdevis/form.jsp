@@ -32,15 +32,6 @@
                     <form:input path="quantite" type="number" min="1" class="form-control" />
                 </div>
 
-                <div class="form-group">
-                    <label>Statut :</label>
-                    <form:select path="statut" class="form-control">
-                        <c:forEach items="${statutsList}" var="s">
-                            <form:option value="${s.idStatut}">${s.libelle}</form:option>
-                        </c:forEach>
-                    </form:select>
-                </div>
-
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
                     <a href="${pageContext.request.contextPath}/detailsdevis/devis/${idDevis}" class="btn btn-secondary">Annuler</a>

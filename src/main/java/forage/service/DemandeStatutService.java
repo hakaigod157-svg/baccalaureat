@@ -38,4 +38,8 @@ public class DemandeStatutService {
     public Long countDemandeStatuts() {
         return demandeStatutRepository.count();
     }
+
+    public DemandeStatut getStatutDemandeFarany(Integer id) {
+        return demandeStatutRepository.getStatutDemandeFarany(id);
+    }
 }

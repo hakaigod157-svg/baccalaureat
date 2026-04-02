@@ -35,6 +35,10 @@ public class StatutService {
         statutRepository.deleteById(id);
     }
 
+    public Statut getStatutByLibelle(String libelle) {
+        return statutRepository.findByLibelle(libelle);
+    }
+
     public Long countStatuts() {
         return statutRepository.count();
     }

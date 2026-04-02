@@ -2,10 +2,8 @@ package forage.controller;
 
 import forage.model.DetailsDevis;
 import forage.model.Devis;
-import forage.model.Statut;
 import forage.service.DetailsDevisService;
 import forage.service.DevisService;
-import forage.service.StatutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +18,6 @@ public class DetailsDevisController {
     private DetailsDevisService detailsDevisService;
     @Autowired
     private DevisService devisService;
-    @Autowired
-    private StatutService statutService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -29,12 +25,6 @@ public class DetailsDevisController {
             @Override
             public void setAsText(String text) {
                 try { setValue(devisService.getDevisById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
-            }
-        });
-        binder.registerCustomEditor(Statut.class, new java.beans.PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                try { setValue(statutService.getStatutById(Integer.parseInt(text))); } catch (Exception e) { setValue(null); }
             }
         });
     }
@@ -64,7 +54,6 @@ public class DetailsDevisController {
         detail.setDevis(devisService.getDevisById(idDevis));
         mav.addObject("detail", detail);
         mav.addObject("idDevis", idDevis);
-        mav.addObject("statutsList", statutService.getAllStatuts());
         mav.addObject("titre", "Nouveau Détail — Devis N°" + idDevis);
         return mav;
     }
@@ -83,7 +72,6 @@ public class DetailsDevisController {
         Integer idDevis = detail.getDevis().getIdDevis();
         mav.addObject("detail", detail);
         mav.addObject("idDevis", idDevis);
-        mav.addObject("statutsList", statutService.getAllStatuts());
         mav.addObject("titre", "Modifier Détail — Devis N°" + idDevis);
         return mav;
     }

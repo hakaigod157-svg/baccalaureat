@@ -27,7 +27,6 @@
                             <th>Prix Unitaire</th>
                             <th>Quantité</th>
                             <!-- <th>Montant</th> -->
-                            <th>Statut</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -42,7 +41,6 @@
                                 <td>${item.prixUnitaire}</td>
                                 <td>${item.quantite}</td>
                                 <!-- <td><strong>${montantLigne}</strong></td> -->
-                                <td>${item.statut.libelle}</td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/detailsdevis/modifier/${item.idDetailsDevis}" class="btn btn-sm btn-secondary">Modifier</a>
                                     <a href="${pageContext.request.contextPath}/detailsdevis/supprimer/${item.idDetailsDevis}" class="btn btn-sm btn-danger" onclick="return confirm('Sûr ?');">Supprimer</a>

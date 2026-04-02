@@ -46,8 +46,7 @@ CREATE TABLE DetailDevis(
     idDevis INTEGER NOT NULL REFERENCES Devis(idDevis),
     libelle VARCHAR(50),
     prixUnitaire DECIMAL(10,2),
-    quantite INTEGER,
-    idStatut INTEGER NOT NULL REFERENCES Statut(idStatut)
+    quantite INTEGER
 );
 
 CREATE TABLE PrixTotalDevis(

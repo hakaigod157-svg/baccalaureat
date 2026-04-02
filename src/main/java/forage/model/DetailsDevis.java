@@ -3,16 +3,16 @@ package forage.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="DetailDevis")
+@Table(name = "DetailDevis")
 public class DetailsDevis {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idDetailDevis")
+    @Column(name = "idDetailDevis")
     private Integer idDetailsDevis;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idDevis" , nullable = false)
+    @JoinColumn(name = "idDevis", nullable = false)
     private Devis devis;
 
     @Column(name = "libelle", length = 50)
@@ -23,10 +23,6 @@ public class DetailsDevis {
 
     @Column(name = "quantite")
     private Integer quantite;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idStatut" , nullable = false)
-    private Statut statut;
 
     public DetailsDevis() {
     }
@@ -69,13 +65,5 @@ public class DetailsDevis {
 
     public void setQuantite(Integer quantite) {
         this.quantite = quantite;
-    }
-
-    public Statut getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Statut statut) {
-        this.statut = statut;
     }
 }

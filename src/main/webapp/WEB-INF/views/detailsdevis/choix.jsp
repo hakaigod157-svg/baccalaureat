@@ -19,7 +19,7 @@
                             <th>ID Devis</th>
                             <th>Client (Demande)</th>
                             <th>Type</th>
-                            <th>Statut</th>
+                            <!-- <th>Statut</th> -->
 
                             <th>Date</th>
                             <th>Actions</th>
@@ -31,7 +31,7 @@
                                 <td>${item.idDevis}</td>
                                 <td>${item.demande.client.nom} (Demande N°${item.demande.idDemande})</td>
                                 <td>${item.typeDevis.libelle}</td>
-                                <td>${item.statut.libelle}</td>
+                                <!-- <td>${item.statut.libelle}</td> -->
 
                                 <td>${item.date}</td>
                                 <td>
